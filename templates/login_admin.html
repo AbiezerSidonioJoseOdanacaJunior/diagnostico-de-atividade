@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login administrativo</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<main class="container login-admin-container">
+
+    <section class="login-admin-card">
+
+        <h1>Acesso administrativo</h1>
+
+        <p>
+            Entre com suas credenciais para acessar
+            o painel do diagnóstico.
+        </p>
+
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+
+            {% for categoria, mensagem in mensagens %}
+
+                <p class="login-admin-erro" role="alert">
+                    {{ mensagem }}
+                </p>
+
+            {% endfor %}
+
+        {% endwith %}
+
+        <form
+            action="{{ url_for('login_admin') }}"
+            method="POST"
+            class="login-admin-form"
+        >
+
+            <label for="usuario">Usuário</label>
+
+            <input
+                type="text"
+                id="usuario"
+                name="usuario"
+                autocomplete="username"
+                required
+            >
+
+            <label for="senha">Senha</label>
+
+            <input
+                type="password"
+                id="senha"
+                name="senha"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" class="botao">
+                Entrar
+            </button>
+
+        </form>
+
+        <a href="{{ url_for('inicio') }}" class="admin-link">
+            ← Voltar à página inicial
+        </a>
+
+    </section>
+
+</main>
+
+</body>
+</html>

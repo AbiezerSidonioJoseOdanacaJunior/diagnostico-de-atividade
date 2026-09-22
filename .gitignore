@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+banco.db
+banco-backup.db
+*.db-journal
+*.db-wal
+*.db-shm

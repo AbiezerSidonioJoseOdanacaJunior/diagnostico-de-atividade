@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Editar Questão</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a
+        href="{{ url_for('listar_questoes') }}"
+        class="link-voltar"
+    >
+        ← Voltar para questões
+    </a>
+
+    <h1>Editar questão</h1>
+
+    <form method="POST">
+
+        <label for="habilidade">
+            Habilidade avaliada
+        </label>
+
+        <select
+            id="habilidade"
+            name="habilidade"
+            required
+        >
+
+            <option
+                value="interpretacao"
+                {% if questao["habilidade"] == "interpretacao" %}selected{% endif %}
+            >
+                Interpretação e compreensão textual
+            </option>
+
+            <option
+                value="raciocinio_logico"
+                {% if questao["habilidade"] == "raciocinio_logico" %}selected{% endif %}
+            >
+                Raciocínio lógico
+            </option>
+
+            <option
+                value="resolucao_problemas"
+                {% if questao["habilidade"] == "resolucao_problemas" %}selected{% endif %}
+            >
+                Resolução de problemas
+            </option>
+
+            <option
+                value="graficos_tabelas"
+                {% if questao["habilidade"] == "graficos_tabelas" %}selected{% endif %}
+            >
+                Leitura de gráficos e tabelas
+            </option>
+
+            <option
+                value="matematica"
+                {% if questao["habilidade"] == "matematica" %}selected{% endif %}
+            >
+                Conhecimentos matemáticos básicos
+            </option>
+
+            <option
+                value="argumentacao"
+                {% if questao["habilidade"] == "argumentacao" %}selected{% endif %}
+            >
+                Argumentação e análise de informações
+            </option>
+
+        </select>
+
+
+        <label for="enunciado">
+            Enunciado
+        </label>
+
+        <textarea
+            id="enunciado"
+            name="enunciado"
+            rows="6"
+            required
+        >{{ questao["enunciado"] }}</textarea>
+
+
+        <label for="alternativa_a">
+            Alternativa A
+        </label>
+
+        <input
+            id="alternativa_a"
+            type="text"
+            name="alternativa_a"
+            value="{{ questao['alternativa_a'] }}"
+            required
+        >
+
+
+        <label for="alternativa_b">
+            Alternativa B
+        </label>
+
+        <input
+            id="alternativa_b"
+            type="text"
+            name="alternativa_b"
+            value="{{ questao['alternativa_b'] }}"
+            required
+        >
+
+
+        <label for="alternativa_c">
+            Alternativa C
+        </label>
+
+        <input
+            id="alternativa_c"
+            type="text"
+            name="alternativa_c"
+            value="{{ questao['alternativa_c'] }}"
+            required
+        >
+
+
+        <label for="alternativa_d">
+            Alternativa D
+        </label>
+
+        <input
+            id="alternativa_d"
+            type="text"
+            name="alternativa_d"
+            value="{{ questao['alternativa_d'] }}"
+            required
+        >
+
+
+        <label for="resposta_correta">
+            Resposta correta
+        </label>
+
+        <select
+            id="resposta_correta"
+            name="resposta_correta"
+            required
+        >
+
+            <option
+                value="A"
+                {% if questao["resposta_correta"] == "A" %}selected{% endif %}
+            >
+                Alternativa A
+            </option>
+
+            <option
+                value="B"
+                {% if questao["resposta_correta"] == "B" %}selected{% endif %}
+            >
+                Alternativa B
+            </option>
+
+            <option
+                value="C"
+                {% if questao["resposta_correta"] == "C" %}selected{% endif %}
+            >
+                Alternativa C
+            </option>
+
+            <option
+                value="D"
+                {% if questao["resposta_correta"] == "D" %}selected{% endif %}
+            >
+                Alternativa D
+            </option>
+
+        </select>
+
+
+        <label for="dificuldade">
+            Nível de dificuldade
+        </label>
+
+        <select
+            id="dificuldade"
+            name="dificuldade"
+            required
+        >
+
+            <option
+                value="facil"
+                {% if questao["dificuldade"] == "facil" %}selected{% endif %}
+            >
+                Fácil
+            </option>
+
+            <option
+                value="media"
+                {% if questao["dificuldade"] == "media" %}selected{% endif %}
+            >
+                Média
+            </option>
+
+            <option
+                value="dificil"
+                {% if questao["dificuldade"] == "dificil" %}selected{% endif %}
+            >
+                Difícil
+            </option>
+
+        </select>
+
+
+        <button
+            type="submit"
+            class="botao"
+        >
+            Salvar alterações
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

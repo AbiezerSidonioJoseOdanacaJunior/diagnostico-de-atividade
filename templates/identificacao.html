@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Identificação</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Identificação</h1>
+
+        <p>
+            Antes de iniciar, informe alguns dados.
+        </p>
+
+        <form method="POST">
+
+            <label>Nome ou apelido</label>
+
+            <input type="text" name="nome" required>
+
+            <label>Série</label>
+
+            <select name="serie" required>
+
+                <option value="">
+                    Selecione
+                </option>
+
+                <option value="1">
+                    1º Ano
+                </option>
+
+                <option value="2">
+                    2º Ano
+                </option>
+
+                <option value="3">
+                    3º Ano
+                </option>
+
+            </select>
+
+            <label>Você é estudante de curso técnico?</label>
+            <select name="curso_tecnico" required>
+                <option value="">Selecione</option>
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+            <label>Idade</label>
+            <input type="number" name="idade" min="13" max="25" required>
+
+            <button type="submit" class="botao">
+                Continuar
+            </button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Instruções</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Antes de começar</h1>
+
+        <div class="card">
+
+            <p>
+                O diagnóstico possui questões relacionadas
+                a diferentes habilidades.
+            </p>
+
+            <p>
+                Leia cada questão com atenção.
+            </p>
+
+            <p>
+                Escolha apenas uma alternativa.
+            </p>
+
+            <p>
+                Ao final você receberá seu resultado.
+            </p>
+
+        </div>
+
+        <a href="{{ url_for('diagnostico') }}" class="botao">
+            Começar diagnóstico
+        </a>
+
+    </div>
+
+</body>
+
+</html>

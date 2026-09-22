@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Banco de Questões</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="container painel-admin">
+
+    <a
+        href="{{ url_for('admin') }}"
+        class="link-voltar"
+    >
+        ← Voltar ao painel
+    </a>
+
+    <div class="cabecalho-pagina">
+
+        <div>
+
+            <h1>Banco de Questões</h1>
+
+            <p>
+                Gerencie as questões utilizadas no diagnóstico.
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('nova_questao') }}"
+            class="botao botao-menor"
+        >
+            + Nova questão
+        </a>
+
+    </div>
+
+
+    {% if questoes %}
+
+        <div class="lista-questoes">
+
+            {% for questao in questoes %}
+
+                <div class="questao-admin">
+
+                    <div class="questao-topo">
+
+                        <div>
+
+                            <strong>
+                                Questão {{ questao["id"] }}
+                            </strong>
+
+                            {% if questao["ativa"] == 1 %}
+
+                                <span class="status ativo">
+                                    Ativa
+                                </span>
+
+                            {% else %}
+
+                                <span class="status inativo">
+                                    Inativa
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                        <span class="dificuldade">
+                            {{ questao["dificuldade"]|capitalize }}
+                        </span>
+
+                    </div>
+
+
+                    <p class="habilidade">
+
+                        {% if questao["habilidade"] == "interpretacao" %}
+
+                            Interpretação e compreensão textual
+
+                        {% elif questao["habilidade"] == "raciocinio_logico" %}
+
+                            Raciocínio lógico
+
+                        {% elif questao["habilidade"] == "resolucao_problemas" %}
+
+                            Resolução de problemas
+
+                        {% elif questao["habilidade"] == "graficos_tabelas" %}
+
+                            Leitura de gráficos e tabelas
+
+                        {% elif questao["habilidade"] == "matematica" %}
+
+                            Conhecimentos matemáticos básicos
+
+                        {% elif questao["habilidade"] == "argumentacao" %}
+
+                            Argumentação e análise de informações
+
+                        {% endif %}
+
+                    </p>
+
+
+                    <h3>
+                        {{ questao["enunciado"] }}
+                    </h3>
+
+
+                    <div class="alternativas-admin">
+
+                        <p>
+                            A) {{ questao["alternativa_a"] }}
+                        </p>
+
+                        <p>
+                            B) {{ questao["alternativa_b"] }}
+                        </p>
+
+                        <p>
+                            C) {{ questao["alternativa_c"] }}
+                        </p>
+
+                        <p>
+                            D) {{ questao["alternativa_d"] }}
+                        </p>
+
+                    </div>
+
+
+                    <p class="resposta-correta">
+                        Resposta correta:
+                        <strong>
+                            {{ questao["resposta_correta"] }}
+                        </strong>
+                    </p>
+
+
+                    <div class="acoes-questao">
+
+                        <a
+                            href="{{ url_for('editar_questao', id=questao['id']) }}"
+                            class="botao-secundario"
+                        >
+                            Editar
+                        </a>
+
+
+                        <form
+                            method="POST"
+                            action="{{ url_for('alterar_status_questao', id=questao['id']) }}"
+                        >
+
+                            {% if questao["ativa"] == 1 %}
+
+                                <button
+                                    type="submit"
+                                    class="botao-status"
+                                >
+                                    Desativar
+                                </button>
+
+                            {% else %}
+
+                                <button
+                                    type="submit"
+                                    class="botao-status"
+                                >
+                                    Ativar
+                                </button>
+
+                            {% endif %}
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="card">
+
+            <h2>Nenhuma questão cadastrada</h2>
+
+            <p>
+                Cadastre a primeira questão do diagnóstico.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>

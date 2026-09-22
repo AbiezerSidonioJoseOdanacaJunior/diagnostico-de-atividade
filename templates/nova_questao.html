@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Cadastrar Questão</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a
+        href="{{ url_for('listar_questoes') }}"
+        class="link-voltar"
+    >
+        ← Voltar para questões
+    </a>
+
+    <h1>Cadastrar questão</h1>
+
+    <p>
+        Cadastre uma nova questão para o diagnóstico.
+    </p>
+
+    <form method="POST">
+
+        <label for="habilidade">
+            Habilidade avaliada
+        </label>
+
+        <select
+            id="habilidade"
+            name="habilidade"
+            required
+        >
+
+            <option value="">
+                Selecione uma habilidade
+            </option>
+
+            <option value="interpretacao">
+                Interpretação e compreensão textual
+            </option>
+
+            <option value="raciocinio_logico">
+                Raciocínio lógico
+            </option>
+
+            <option value="resolucao_problemas">
+                Resolução de problemas
+            </option>
+
+            <option value="graficos_tabelas">
+                Leitura de gráficos e tabelas
+            </option>
+
+            <option value="matematica">
+                Conhecimentos matemáticos básicos
+            </option>
+
+            <option value="argumentacao">
+                Argumentação e análise de informações
+            </option>
+
+        </select>
+
+
+        <label for="enunciado">
+            Enunciado
+        </label>
+
+        <textarea
+            id="enunciado"
+            name="enunciado"
+            rows="6"
+            placeholder="Digite o enunciado da questão..."
+            required
+        ></textarea>
+
+
+        <label for="alternativa_a">
+            Alternativa A
+        </label>
+
+        <input
+            id="alternativa_a"
+            type="text"
+            name="alternativa_a"
+            required
+        >
+
+
+        <label for="alternativa_b">
+            Alternativa B
+        </label>
+
+        <input
+            id="alternativa_b"
+            type="text"
+            name="alternativa_b"
+            required
+        >
+
+
+        <label for="alternativa_c">
+            Alternativa C
+        </label>
+
+        <input
+            id="alternativa_c"
+            type="text"
+            name="alternativa_c"
+            required
+        >
+
+
+        <label for="alternativa_d">
+            Alternativa D
+        </label>
+
+        <input
+            id="alternativa_d"
+            type="text"
+            name="alternativa_d"
+            required
+        >
+
+
+        <label for="resposta_correta">
+            Resposta correta
+        </label>
+
+        <select
+            id="resposta_correta"
+            name="resposta_correta"
+            required
+        >
+
+            <option value="">
+                Selecione
+            </option>
+
+            <option value="A">Alternativa A</option>
+            <option value="B">Alternativa B</option>
+            <option value="C">Alternativa C</option>
+            <option value="D">Alternativa D</option>
+
+        </select>
+
+
+        <label for="dificuldade">
+            Nível de dificuldade
+        </label>
+
+        <select
+            id="dificuldade"
+            name="dificuldade"
+            required
+        >
+
+            <option value="">
+                Selecione
+            </option>
+
+            <option value="facil">
+                Fácil
+            </option>
+
+            <option value="media">
+                Média
+            </option>
+
+            <option value="dificil">
+                Difícil
+            </option>
+
+        </select>
+
+
+        <button
+            type="submit"
+            class="botao"
+        >
+            Cadastrar questão
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

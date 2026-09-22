@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resultado Individual</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<main class="container resultado-container">
+
+    <a href="{{ url_for('admin') }}" class="admin-link">
+        ← Voltar ao painel
+    </a>
+
+    <header class="resultado-cabecalho">
+
+        <h1>Resultado individual</h1>
+
+        <p>
+            <strong>Estudante:</strong>
+            {{ estudante["nome"] }}
+        </p>
+
+        <p>
+            <strong>Série:</strong>
+            {{ estudante["serie"] }}
+        </p>
+
+        <p>
+            <strong>Curso técnico:</strong>
+            {{ estudante["curso_tecnico"] }}
+        </p>
+
+        <p>
+            <strong>Data de cadastro:</strong>
+            {{ estudante["data_realizacao"] }}
+        </p>
+
+    </header>
+
+
+    <section class="resultado-resumo">
+
+        <h2>Desempenho geral</h2>
+
+        <p class="resultado-percentual">
+            {{ resultado["media_geral"] }}%
+        </p>
+
+        <p>
+            {{ total_acertos }} acertos em
+            {{ total_questoes }} questões respondidas.
+        </p>
+
+    </section>
+
+
+    <section class="resultado-habilidades">
+
+        <h2>Desempenho por habilidade</h2>
+
+        {% for habilidade in resultados_habilidades %}
+
+        <article class="habilidade-resultado">
+
+            <div class="habilidade-resultado-topo">
+
+                <h3>{{ habilidade["nome"] }}</h3>
+
+                <strong>
+
+                    {% if habilidade["percentual"] is not none %}
+
+                        {{ habilidade["percentual"] }}%
+
+                    {% else %}
+
+                        Não avaliada
+
+                    {% endif %}
+
+                </strong>
+
+            </div>
+
+            {% if habilidade["percentual"] is not none %}
+
+                <div class="admin-barra">
+
+                    <div
+                        class="admin-barra-preenchimento"
+                        style="width: {{ habilidade['percentual'] }}%;"
+                    ></div>
+
+                </div>
+
+                <p class="habilidade-acertos">
+                    {{ habilidade["acertos"] }}
+                    de
+                    {{ habilidade["total"] }}
+                    questões corretas
+                </p>
+
+            {% endif %}
+
+        </article>
+
+        {% endfor %}
+
+    </section>
+
+</main>
+
+</body>
+</html>

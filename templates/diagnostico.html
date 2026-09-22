@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Diagnóstico de Habilidades</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <main class="container diagnostico-container">
+
+        <h1>Diagnóstico de Habilidades</h1>
+
+        {% if sem_questoes %}
+
+            <div class="card">
+
+                <h2>Diagnóstico indisponível</h2>
+
+                <p>
+                    Ainda não existem questões ativas
+                    cadastradas para este diagnóstico.
+                </p>
+
+                <a
+                    href="{{ url_for('inicio') }}"
+                    class="botao"
+                >
+                    Voltar ao início
+                </a>
+
+            </div>
+
+        {% else %}
+
+            <div class="diagnostico-progresso">
+
+                <p>
+                    Questão
+                    <strong>{{ numero_questao }}</strong>
+                    de
+                    <strong>{{ total_questoes }}</strong>
+                </p>
+
+                <div class="barra-progresso">
+
+                    <div
+                        class="barra-preenchimento"
+                        style="width: {{ progresso }}%;"
+                    ></div>
+
+                </div>
+
+                <p class="progresso-texto">
+                    {{ progresso }}% concluído
+                </p>
+
+            </div>
+
+
+            <form
+                method="POST"
+                action="{{ url_for('diagnostico') }}"
+                class="formulario-diagnostico"
+            >
+
+                <input
+                    type="hidden"
+                    name="questao_id"
+                    value="{{ questao['id'] }}"
+                >
+
+
+                <div class="questao-estudante">
+
+                    <p class="habilidade-diagnostico">
+
+                        {% if questao["habilidade"] == "interpretacao" %}
+
+                            Interpretação e compreensão textual
+
+                        {% elif questao["habilidade"] == "raciocinio_logico" %}
+
+                            Raciocínio lógico
+
+                        {% elif questao["habilidade"] == "resolucao_problemas" %}
+
+                            Resolução de problemas
+
+                        {% elif questao["habilidade"] == "graficos_tabelas" %}
+
+                            Leitura de gráficos e tabelas
+
+                        {% elif questao["habilidade"] == "matematica" %}
+
+                            Conhecimentos matemáticos básicos
+
+                        {% elif questao["habilidade"] == "argumentacao" %}
+
+                            Argumentação e análise de informações
+
+                        {% endif %}
+
+                    </p>
+
+
+                    <h2 class="enunciado-diagnostico">
+                        {{ questao["enunciado"] }}
+                    </h2>
+
+
+                    <div class="alternativas-diagnostico">
+
+                        <label class="alternativa-item">
+
+                            <input
+                                type="radio"
+                                name="resposta_marcada"
+                                value="A"
+                                required
+                            >
+
+                            <span>
+                                <strong>A)</strong>
+                                {{ questao["alternativa_a"] }}
+                            </span>
+
+                        </label>
+
+
+                        <label class="alternativa-item">
+
+                            <input
+                                type="radio"
+                                name="resposta_marcada"
+                                value="B"
+                                required
+                            >
+
+                            <span>
+                                <strong>B)</strong>
+                                {{ questao["alternativa_b"] }}
+                            </span>
+
+                        </label>
+
+
+                        <label class="alternativa-item">
+
+                            <input
+                                type="radio"
+                                name="resposta_marcada"
+                                value="C"
+                                required
+                            >
+
+                            <span>
+                                <strong>C)</strong>
+                                {{ questao["alternativa_c"] }}
+                            </span>
+
+                        </label>
+
+
+                        <label class="alternativa-item">
+
+                            <input
+                                type="radio"
+                                name="resposta_marcada"
+                                value="D"
+                                required
+                            >
+
+                            <span>
+                                <strong>D)</strong>
+                                {{ questao["alternativa_d"] }}
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="botao botao-avancar"
+                >
+
+                    {% if numero_questao == total_questoes %}
+
+                        Finalizar diagnóstico
+
+                    {% else %}
+
+                        Próxima questão →
+
+                    {% endif %}
+
+                </button>
+
+            </form>
+
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

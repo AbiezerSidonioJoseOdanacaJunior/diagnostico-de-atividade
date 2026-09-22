@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Resultado do Diagnóstico</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+<main class="container resultado-container">
+
+    <header class="resultado-cabecalho">
+
+        <h1>Resultado do Diagnóstico</h1>
+
+        <p>
+            Olá, <strong>{{ estudante["nome"] }}</strong>!
+            Você concluiu o diagnóstico de habilidades.
+        </p>
+
+    </header>
+
+
+    <section class="resultado-resumo">
+
+        <h2>Seu desempenho geral</h2>
+
+        <p class="resultado-percentual">
+            {{ media_geral }}%
+        </p>
+
+        <p>
+            Você acertou
+            <strong>{{ total_acertos }}</strong>
+            de
+            <strong>{{ total_questoes }}</strong>
+            questões.
+        </p>
+
+        <div class="barra-progresso">
+
+            <div
+                class="barra-preenchimento"
+                style="width: {{ media_geral }}%;"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <section class="resultado-habilidades">
+
+        <h2>Desempenho por habilidade</h2>
+
+        <p>
+            Veja seus resultados em cada área avaliada.
+        </p>
+
+
+        {% for habilidade in resultados_habilidades %}
+
+        <article class="habilidade-resultado">
+
+            <div class="habilidade-resultado-topo">
+
+                <h3>
+                    {{ habilidade["nome"] }}
+                </h3>
+
+                {% if habilidade["percentual"] is not none %}
+
+                    <strong>
+                        {{ habilidade["percentual"] }}%
+                    </strong>
+
+                {% else %}
+
+                    <strong>Não avaliada</strong>
+
+                {% endif %}
+
+            </div>
+
+
+            {% if habilidade["percentual"] is not none %}
+
+                <div class="barra-progresso">
+
+                    <div
+                        class="barra-preenchimento"
+                        style="width: {{ habilidade['percentual'] }}%;"
+                    ></div>
+
+                </div>
+
+                <p class="habilidade-acertos">
+
+                    Acertos:
+                    {{ habilidade["acertos"] }}
+                    de
+                    {{ habilidade["total"] }}
+
+                </p>
+
+            {% else %}
+
+                <p class="habilidade-acertos">
+                    Nenhuma questão desta habilidade
+                    foi respondida neste diagnóstico.
+                </p>
+
+            {% endif %}
+
+        </article>
+
+        {% endfor %}
+
+    </section>
+
+
+    <section class="resultado-observacao">
+
+        <h2>Sobre seu resultado</h2>
+
+        <p>
+            Os percentuais representam seu desempenho
+            nas questões deste diagnóstico.
+        </p>
+
+        <p>
+            As habilidades com menores percentuais
+            podem indicar áreas que merecem maior atenção
+            nos seus estudos.
+        </p>
+
+        <p>
+            Este instrumento não constitui um diagnóstico
+            clínico de dificuldades ou transtornos
+            de aprendizagem.
+        </p>
+
+    </section>
+
+
+    <a
+        href="{{ url_for('inicio') }}"
+        class="botao"
+    >
+        Voltar à página inicial
+    </a>
+
+</main>
+
+</body>
+</html>

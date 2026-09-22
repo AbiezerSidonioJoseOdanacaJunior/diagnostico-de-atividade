@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Painel Administrativo</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <main class="container painel-admin">
+
+        <header class="admin-cabecalho">
+
+            <div>
+                <h1>Painel Administrativo</h1>
+                <p>Acompanhamento do diagnóstico de habilidades</p>
+            </div>
+
+            <a href="{{ url_for('listar_questoes') }}" class="botao">
+                Gerenciar questões
+            </a>
+
+            <form action="{{ url_for('sair_admin') }}" method="POST">
+                <button type="submit" class="botao">
+                    Sair
+                </button>
+            </form>
+
+        </header>
+
+
+        <section class="admin-indicadores">
+
+            <article class="admin-indicador">
+                <span>Estudantes cadastrados</span>
+                <strong>{{ total_estudantes }}</strong>
+            </article>
+
+            <article class="admin-indicador">
+                <span>Diagnósticos concluídos</span>
+                <strong>{{ total_concluidos }}</strong>
+            </article>
+
+            <article class="admin-indicador">
+                <span>Questões ativas</span>
+                <strong>{{ questoes_ativas }} de {{ total_questoes }}</strong>
+            </article>
+
+            <article class="admin-indicador">
+                <span>Média geral dos concluintes</span>
+
+                <strong>
+                    {% if media_geral is not none %}
+                    {{ media_geral }}%
+                    {% else %}
+                    —
+                    {% endif %}
+                </strong>
+            </article>
+
+        </section>
+
+
+        <section class="admin-secao">
+
+            <h2>Média por habilidade</h2>
+
+            <p>
+                Percentuais médios dos estudantes que concluíram
+                o diagnóstico.
+            </p>
+
+            {% for habilidade in habilidades %}
+
+            <article class="admin-habilidade">
+
+                <div class="admin-habilidade-topo">
+
+                    <span>{{ habilidade["nome"] }}</span>
+
+                    <strong>
+                        {% if habilidade["media"] is not none %}
+                        {{ habilidade["media"] }}%
+                        {% else %}
+                        Não avaliada
+                        {% endif %}
+                    </strong>
+
+                </div>
+
+                {% if habilidade["media"] is not none %}
+
+                <div class="admin-barra">
+
+                    <div class="admin-barra-preenchimento" style="width: {{ habilidade['media'] }}%;"></div>
+
+                </div>
+
+                {% endif %}
+
+            </article>
+
+            {% endfor %}
+
+        </section>
+
+
+        <section class="admin-secao">
+
+            <h2>Estudantes participantes</h2>
+
+            <div class="admin-tabela-container">
+
+                <table class="admin-tabela">
+
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Série</th>
+                            <th>Curso técnico</th>
+                            <th>Data</th>
+                            <th>Situação</th>
+                            <th>Resultado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for estudante in estudantes %}
+
+                        <tr>
+
+                            <td>{{ estudante["nome"] }}</td>
+
+                            <td>{{ estudante["serie"] }}</td>
+
+                            <td>{{ estudante["curso_tecnico"] }}</td>
+
+                            <td>{{ estudante["data_realizacao"] }}</td>
+
+                            <td>
+
+                                {% if estudante["resultado_id"] is not none %}
+
+                                <span class="admin-status concluido">
+                                    Concluído
+                                </span>
+
+                                {% elif estudante["total_respostas"] > 0 %}
+
+                                <span class="admin-status andamento">
+                                    Em andamento
+                                </span>
+
+                                {% else %}
+
+                                <span class="admin-status pendente">
+                                    Não iniciado
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                {% if estudante["resultado_id"] is not none %}
+
+                                <a href="{{ url_for(
+                                        'admin_resultado',
+                                        estudante_id=estudante['id']
+                                    ) }}" class="admin-link">
+                                    Ver resultado
+                                </a>
+
+                                {% else %}
+
+                                —
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+                            <td colspan="6">
+                                Nenhum estudante cadastrado.
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
