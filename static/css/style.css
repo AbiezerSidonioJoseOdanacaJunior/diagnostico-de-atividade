@@ -8,7 +8,7 @@ body {
 
     font-family: Arial, Helvetica, sans-serif;
 
-    background-color: #f4f6f8;
+    background-color: #0B6958;
 
     color: #222;
 }
@@ -617,6 +617,10 @@ textarea {
     line-height: 1.6;
 
     margin-bottom: 25px;
+    padding: 18px;
+    background: #F2CC0C;
+    color: #222;
+    border-radius: 10px;
 
     white-space: pre-wrap;
     overflow-wrap: anywhere;
